@@ -116,7 +116,8 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = 3001;
-server.listen(PORT, 'localhost', () => {
-  console.log(`[server] listening on localhost:${PORT}`);
+const PORT = process.env.PORT || 3001;
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`[server] listening on ${PORT}`);
 });
