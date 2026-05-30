@@ -16,6 +16,16 @@ app.use(express.json());
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
+const path = require('path');
+
+// Viteのビルド成果物を配信
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// それ以外は全部フロントに渡す（重要）
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 io.on('connection', (socket) => {
   console.log('[connect]', socket.id);
 
